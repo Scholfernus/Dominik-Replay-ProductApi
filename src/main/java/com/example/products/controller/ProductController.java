@@ -56,4 +56,16 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<ProductModel> editProductById(@PathVariable("id") Long id
+            , @RequestBody ProductModel model) {
+        try {
+            productService.editById(model, id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
 }
