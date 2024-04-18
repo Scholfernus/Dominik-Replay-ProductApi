@@ -68,4 +68,15 @@ public class ProductController {
         }
     }
 
+    @PatchMapping("/{id}/price")
+    public ResponseEntity<ProductDto> changePrice(@PathVariable("id") Long id,
+                                                  @RequestBody ProductDto productDto) {
+        try {
+            ProductDto newPrice = productService.updatePrice(id, productDto);
+            return ResponseEntity.ok(newPrice);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
