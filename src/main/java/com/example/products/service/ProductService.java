@@ -4,6 +4,7 @@ import com.example.products.dto.ProductDto;
 import com.example.products.model.ProductModel;
 import com.example.products.repository.ProductRepository;
 import com.example.products.utils.ProductMapper;
+import com.example.products.utils.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,12 +30,20 @@ public class ProductService {
     }
 
     public void deleteById(Long id) {
-    productRepository.deleteById(id);
+        productRepository.deleteById(id);
     }
 
 
-    public void editById(ProductModel model,Long id) {
+    public void editById(ProductModel model, Long id) {
         model.setId(id);
         productRepository.save(model);
+    }
+
+    public ProductDto updatePrice(Long id, ProductDto dto) {
+        ProductModel changePriceById = productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product doesn't exist"));
+        changePriceById.setPrice(dto.getPrice());
+        ProductModel saved = productRepository.save(changePriceById);
+        return ProductMapper.toProductDto(saved);
     }
 }
