@@ -4,7 +4,7 @@ import com.example.products.dto.ProductDto;
 import com.example.products.model.ProductModel;
 import com.example.products.repository.ProductRepository;
 import com.example.products.utils.ProductMapper;
-import com.example.products.utils.ProductNotFoundException;
+import com.example.products.utils.Error.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
